@@ -4,7 +4,7 @@
 ---
 
 ```terminal
-$ cmake -B ./build -DCMAKE_BUILD_TYPE=Release -DBLADE_ROOT="/path/to/blade/root/folder"
+$ cmake -B ./build -DCMAKE_BUILD_TYPE=Release -DBLADE_ROOT="/path/to/blade/ext/root/folder"
 $ cmake --build build --config Release
 ```
 
