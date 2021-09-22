@@ -18,3 +18,15 @@ link_directories("${BLADE_ROOT}")
 
 add_library(demo SHARED demo.c)
 target_link_libraries(demo blade)
+
+if(WIN32)
+	target_link_libraries(demo wsock32 ws2_32)
+
+	# we are linking sqlite here because sqlite library is still part 
+	# of Blade core. Once separated into it's own project, this won't be 
+	# necessary anymore. Also, note that sqlite.lib is not in path. If 
+	# you built Blade from source, you can get it from the build directory's 
+	# thirdpaties/sqlite/sqlite.lib and copy it into Blade's root directory.
+	target_link_libraries(demo sqlite)
+endif()
+

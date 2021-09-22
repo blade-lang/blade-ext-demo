@@ -1,11 +1,17 @@
 #include <blade.h>
 #include <stdio.h>
 
+#ifdef _WIN32
+#undef EXPORT
+#define EXPORT __declspec(dllexport)
+#else
+#endif
+
 /**
  * sample module variable.
  * @see blade.h for available macros.
  */
-b_value demo_version(b_vm *vm) {
+EXPORT b_value demo_version(b_vm *vm) {
   return NUMBER_VAL(1);
 }
 
@@ -13,7 +19,7 @@ b_value demo_version(b_vm *vm) {
  * sample module function.
  * @see blade.h for available macros.
  */
-DECLARE_MODULE_METHOD(say_hello) {
+EXPORT DECLARE_MODULE_METHOD(say_hello) {
   RETURN_STRING("Hello, World");
 }
 
@@ -29,7 +35,7 @@ DECLARE_MODULE_METHOD(say_hello) {
  * @def shout(name: string)
  * @see blade.h for available macros.
  */
-DECLARE_MODULE_METHOD(shout_blade) {
+EXPORT DECLARE_MODULE_METHOD(shout_blade) {
   ENFORCE_ARG_COUNT(shout, 1);
   b_obj_string *string = AS_STRING(args[0]);
 
@@ -37,7 +43,7 @@ DECLARE_MODULE_METHOD(shout_blade) {
   RETURN;
 }
 
-CREATE_MODULE_LOADER(demo) {
+EXPORT CREATE_MODULE_LOADER(demo) {
   static b_field_reg fields[] = {
       {"version", true, demo_version},
       {NULL,       false, NULL},
